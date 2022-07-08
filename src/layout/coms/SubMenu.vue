@@ -6,7 +6,9 @@
   >
     <el-sub-menu index="1">
       <template #title>
-        <el-icon><icon-menu /></el-icon>
+        <el-icon>
+          <Menu />
+        </el-icon>
         <span>Navigator One</span>
       </template>
       <el-menu-item-group>
@@ -15,29 +17,42 @@
       </el-menu-item-group>
     </el-sub-menu>
     <el-menu-item index="2">
-      <el-icon><icon-menu /></el-icon>
+      <el-icon>
+        <Menu />
+      </el-icon>
       <template #title>Navigator Two</template>
     </el-menu-item>
     <el-menu-item index="3" disabled>
-      <el-icon><document /></el-icon>
+      <el-icon>
+        <Document />
+      </el-icon>
       <template #title>Navigator Three</template>
     </el-menu-item>
     <el-menu-item index="4">
-      <el-icon><setting /></el-icon>
+      <el-icon>
+        <Setting />
+      </el-icon>
       <template #title>Navigator Four</template>
     </el-menu-item>
   </el-menu>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, toRefs } from "vue";
+import { useStore } from "vuex";
+import { Menu, Document, Setting } from "@element-plus/icons-vue";
 
-const isCollapse = ref(false);
+const store = useStore();
+const { isCollapse } = toRefs(store.state.menu);
 </script>
 
 <style>
 :root {
   --el-menu-bg-color: #304156;
   --el-menu-text-color: #bfcbd9;
+}
+
+.el-menu {
+  height: 100%;
 }
 </style>

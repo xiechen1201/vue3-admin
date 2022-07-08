@@ -28,15 +28,18 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import { Avatar, Unlock } from "@element-plus/icons-vue";
 
 const router = useRouter();
+const store = useStore();
 const form = ref({});
 
 function handleClickLogin() {
-  document.cookies = "token=true";
-  router.push({
-    path: "/home",
+  const token = Math.random();
+
+  store.dispatch("user/setUserToken", token).then(() => {
+    router.replace("/");
   });
 }
 </script>
@@ -64,7 +67,7 @@ function handleClickLogin() {
         background: rgba(0, 0, 0, 0.1);
         border-radius: 5px;
         color: #454545;
-        .el-icon{
+        .el-icon {
           font-size: 20px;
         }
         .el-input__inner {
