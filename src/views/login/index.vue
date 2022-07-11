@@ -19,7 +19,9 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="handleClickLogin">Login</el-button>
+        <el-button type="primary" :loading="isLoading" @click="handleClickLogin">
+          Login
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -34,12 +36,17 @@ import { Avatar, Unlock } from "@element-plus/icons-vue";
 const router = useRouter();
 const store = useStore();
 const form = ref({});
+const isLoading = ref(false);
 
 function handleClickLogin() {
   const token = Math.random();
 
+  isLoading.value = true;
   store.dispatch("user/setUserToken", token).then(() => {
-    router.replace("/");
+    router.replace({
+      path: "/",
+      query: { form: "login" },
+    });
   });
 }
 </script>

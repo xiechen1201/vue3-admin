@@ -46,7 +46,7 @@ const store = useStore();
 const { isCollapse } = toRefs(store.state.menu);
 </script>
 
-<style>
+<style lang="scss">
 :root {
   --el-menu-bg-color: #304156;
   --el-menu-text-color: #bfcbd9;
@@ -54,5 +54,8 @@ const { isCollapse } = toRefs(store.state.menu);
 
 .el-menu {
   height: 100%;
+  .el-sub-menu {
+    min-width: 200px;
+  }
 }
 </style>

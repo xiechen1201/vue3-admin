@@ -6,6 +6,7 @@
  * @param {any} value
  *  */
 function setCookie(name, value, expires) {
+  console.log(getCookie(name))
   document.cookie = `${name}=${value}`;
 }
 

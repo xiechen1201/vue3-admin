@@ -6,11 +6,19 @@ export default {
     token: ref(getCookie("token")),
   }),
   actions: {
-    setUserToken(state, data) {
+    setUserToken({ commit }, data) {
       return new Promise((resolve) => {
-        state.commit("SET_USER_TOKEN", data);
-        setCookie("token", data);
-
+        setTimeout(() => {
+          commit("SET_USER_TOKEN", data);
+          setCookie("token", data);
+          resolve();
+        }, 2000);
+      });
+    },
+    loginout({ commit }) {
+      return new Promise((resolve) => {
+        commit("REMOVE_USET_TOKEN");
+        setCookie("token", "");
         resolve();
       });
     },
@@ -19,6 +27,10 @@ export default {
     SET_USER_TOKEN(state, data) {
       const { token } = toRefs(state);
       token.value = data;
+    },
+    REMOVE_USET_TOKEN(state) {
+      const { token } = toRefs(state);
+      token.value = "";
     },
   },
   namespaced: true,

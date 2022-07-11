@@ -25,7 +25,7 @@ import NavBar from "./coms/NavBar.vue";
   }
   .el-main {
     padding: 0;
-    .page-content{
+    .page-content {
       padding: 20px;
     }
   }
