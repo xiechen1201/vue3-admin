@@ -1,11 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import layout from "../layout/index.vue";
 
-// 需要权限才能访问的路由
-const permissionRouters = [];
-
 // 不需要权限就能访问的路由
-const constantRoutes = [
+export const constantRoutes = [
   {
     path: "/login",
     component: () => import("../views/login/index.vue"),
@@ -31,6 +28,18 @@ const constantRoutes = [
         },
       },
     ],
+  },
+];
+
+// 需要权限才能访问的路由
+export const asyncRoutes = [
+  {
+    path: "/table",
+    name: "Table",
+    component: () => import("../views/table/index.vue"),
+    meta: {
+      role: ["admin"],
+    },
   },
 ];
 

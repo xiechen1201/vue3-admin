@@ -1,12 +1,11 @@
 import router from "./router";
-import { toRefs } from "vue";
 import store from "./store/index";
 
 const whiteList = ["/login"];
 
 router.beforeEach((to, from) => {
-  const { token } = toRefs(store.state.user);
-  const isLogin = !!token.value;
+  const { token } = store.state.user;
+  const isLogin = !!token;
 
   if (isLogin) {
     if (to.path === "/login") {

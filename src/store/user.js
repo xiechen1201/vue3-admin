@@ -1,36 +1,48 @@
-import { ref, toRefs } from "vue";
-import { getCookie, setCookie } from "@/utils/cookie";
+import { toRefs } from "vue";
+import Cookie from "js-cookie";
+import { login } from "../api/user.js";
+
+function getUserInfo() {
+  const info = Cookie.get("userInfo");
+  return info ? JSON.parse(info) : null;
+}
 
 export default {
   state: () => ({
-    token: ref(getCookie("token")),
+    token: Cookie.get("token") || "",
+    userInfo: getUserInfo(),
   }),
   actions: {
-    setUserToken({ commit }, data) {
+    userLogin({ commit }) {
       return new Promise((resolve) => {
-        setTimeout(() => {
-          commit("SET_USER_TOKEN", data);
-          setCookie("token", data);
+        login({}).then((res) => {
+          commit("SET_USER_INFO", res);
           resolve();
-        }, 2000);
+        });
       });
     },
     loginout({ commit }) {
       return new Promise((resolve) => {
-        commit("REMOVE_USET_TOKEN");
-        setCookie("token", "");
+        commit("REMOVE_USET_INFO");
         resolve();
       });
     },
   },
   mutations: {
-    SET_USER_TOKEN(state, data) {
-      const { token } = toRefs(state);
-      token.value = data;
+    SET_USER_INFO(state, data) {
+      Cookie.set("token", data.token);
+      Cookie.set("userInfo", JSON.stringify(data));
+
+      state.token = data.token;
+      state.userInfo = data;
     },
-    REMOVE_USET_TOKEN(state) {
-      const { token } = toRefs(state);
+    REMOVE_USET_INFO(state) {
+      Cookie.remove("token");
+      Cookie.remove("userInfo");
+
+      const { token, userInfo } = toRefs(state);
       token.value = "";
+      userInfo.value = null;
     },
   },
   namespaced: true,

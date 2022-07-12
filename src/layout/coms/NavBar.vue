@@ -4,10 +4,9 @@
       <Fold />
     </el-icon>
     <el-dropdown>
-      <el-avatar :size="50" src="" />
+      <el-avatar :size="30" shape="square" :src="userInfo.avatar" />
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item>Action 1</el-dropdown-item>
           <el-dropdown-item @click="loginout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -22,6 +21,7 @@ import { Fold } from "@element-plus/icons-vue";
 
 const store = useStore();
 const router = useRouter();
+const { userInfo } = store.state.user;
 
 function handleClickIcon() {
   store.commit("menu/changeCollapse");

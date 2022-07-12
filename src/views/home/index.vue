@@ -1,13 +1,17 @@
-<template>这是home页面</template>
+<template>
+  <p>用户信息：{{ store.state.user.userInfo }}</p>
+</template>
 
 <script setup>
 import { onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
 import { ElNotification } from "element-plus";
 import "element-plus/es/components/notification/style/css";
 
 const route = useRoute();
 const router = useRouter();
+const store = useStore();
 
 onMounted(() => {
   const { form } = route.query;

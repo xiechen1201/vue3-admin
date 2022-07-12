@@ -19,7 +19,11 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" :loading="isLoading" @click="handleClickLogin">
+        <el-button
+          type="primary"
+          :loading="isLoading"
+          @click="handleClickLogin"
+        >
           Login
         </el-button>
       </el-form-item>
@@ -28,21 +32,22 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { Avatar, Unlock } from "@element-plus/icons-vue";
 
 const router = useRouter();
 const store = useStore();
-const form = ref({});
+const form = reactive({
+  name: "18801120693",
+  password: "abc123456",
+});
 const isLoading = ref(false);
 
 function handleClickLogin() {
-  const token = Math.random();
-
   isLoading.value = true;
-  store.dispatch("user/setUserToken", token).then(() => {
+  store.dispatch("user/userLogin").then(() => {
     router.replace({
       path: "/",
       query: { form: "login" },
