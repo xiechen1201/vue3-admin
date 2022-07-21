@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside>
+    <el-aside width="200px">
       <SubMenu />
     </el-aside>
     <el-main>
@@ -20,13 +20,12 @@ import NavBar from "./coms/NavBar.vue";
 <style lang="scss" scoped>
 .el-container {
   height: 100%;
-  .el-aside {
-    width: auto;
-  }
   .el-main {
     padding: 0;
     .page-content {
       padding: 20px;
+      min-height: calc(100vh - 90px);
+      background-color: #f5f5f5;
     }
   }
 }

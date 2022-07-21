@@ -1,6 +1,6 @@
 import { toRefs } from "vue";
 import Cookie from "js-cookie";
-import { login } from "../api/user.js";
+import { login, userInfo } from "../api/user.js";
 
 function getUserInfo() {
   const info = Cookie.get("userInfo");
@@ -10,14 +10,23 @@ function getUserInfo() {
 export default {
   state: () => ({
     token: Cookie.get("token") || "",
-    userInfo: getUserInfo(),
+    userInfo: null,
   }),
   actions: {
     userLogin({ commit }) {
       return new Promise((resolve) => {
         login({}).then((res) => {
-          commit("SET_USER_INFO", res);
+          commit("SET_TOKEN", res);
           resolve();
+        });
+      });
+    },
+    userInfo({ commit }) {
+      console.warn("请求用户信息")
+      return new Promise((resolve) => {
+        userInfo({}).then((res) => {
+          commit("SET_USER_INFO", res);
+          resolve(res)
         });
       });
     },
@@ -29,11 +38,11 @@ export default {
     },
   },
   mutations: {
-    SET_USER_INFO(state, data) {
+    SET_TOKEN(state, data) {
       Cookie.set("token", data.token);
-      Cookie.set("userInfo", JSON.stringify(data));
-
       state.token = data.token;
+    },
+    SET_USER_INFO(state, data) {
       state.userInfo = data;
     },
     REMOVE_USET_INFO(state) {

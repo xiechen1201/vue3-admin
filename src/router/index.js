@@ -18,14 +18,15 @@ export const constantRoutes = [
     path: "/home",
     redirect: "/home/index",
     component: layout,
+    name: "Home",
+    meta: {
+      title: "主页",
+    },
     children: [
       {
         path: "index",
-        name: "Home",
+        name: "HomeIndex",
         component: () => import("../views/home/index.vue"),
-        meta: {
-          title: "主页",
-        },
       },
     ],
   },
@@ -35,11 +36,51 @@ export const constantRoutes = [
 export const asyncRoutes = [
   {
     path: "/table",
+    redirect: "/table/index",
+    component: layout,
     name: "Table",
-    component: () => import("../views/table/index.vue"),
     meta: {
+      title: "表格",
       role: ["admin"],
     },
+    children: [
+      {
+        path: "index",
+        name: "TableIndex",
+        component: () => import("../views/table/index.vue"),
+        meta: {
+          title: "列表",
+        },
+      },
+      {
+        path: "edit",
+        name: "TableEdit",
+        component: () => import("../views/table/edit.vue"),
+        meta: {
+          title: "编辑",
+        },
+      },
+    ],
+  },
+  {
+    path: "/from",
+    redirect: "/from/index",
+    component: layout,
+    name: "Form",
+    meta: {
+      title: "表单",
+      role: ["admin"],
+    },
+    children: [
+      {
+        path: "index",
+        name: "From",
+        component: () => import("../views/from/index.vue"),
+        meta: {
+          title: "首页",
+        },
+      },
+    ],
   },
 ];
 
